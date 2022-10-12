@@ -48,7 +48,7 @@ Chebyshev II滤波器：
 ![巴特沃斯滤波器参数修改](Butterworth_PZAna.gif)
 
 
-程序的Matalb源码已经上传GitHub中$^{[7]}$(https://github.com/etools361/MatlabChebyshevFilterDesignApp)，有兴趣的同学可以下载试用体验，当然也欢迎技术交流。
+程序的Matalb源码已经上传GitHub中$^{[8]}$(https://github.com/etools361/FilterPoleZeroAnalyzer)，有兴趣的同学可以下载试用体验，当然也欢迎技术交流。
 
 
 ### 参考(ref)
@@ -59,4 +59,4 @@ Chebyshev II滤波器：
 [5] : [模拟无源滤波器设计（五）-Butterworth滤波器设计详解](https://mp.weixin.qq.com/s/pIMPIh8ize49mxXG4SHT_w) \
 [6] : [模拟无源滤波器设计（六）-Chebyshev滤波器设计详解](https://mp.weixin.qq.com/s/6b1HF81X93M9D4yfIAFROw) \
 [7] : [欢迎关注电路设计小工具公众号](https://mp.weixin.qq.com/s/fxfEnir-hU0YvF9_CWyI6g) \
-[8] : [Matlab源码地址](https://github.com/etools361/MatlabChebyshevFilterDesignApp)
+[8] : [Matlab源码地址](https://github.com/etools361/FilterPoleZeroAnalyzer)
