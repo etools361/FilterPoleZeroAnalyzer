@@ -83,9 +83,26 @@ function [iP, rP, iZ, rZ, ff, yf, HsFR, MagFp, Hs, Hs0, P, Z] = funCalcuParamete
             end
             ff   = fp.*imag(KK2);
             yf   = fp.*real(KK2);
-        case 'Cauer'
-            ff = [];
-            yf = [];
+        case 'Elliptic'
+            es   = sqrt(10^(0.1*As)-1);% 阻带衰减量
+            ep   = epsilon;%sqrt(10^(0.1*Ap)-1);% 截止频率处衰减量
+            k1   = ep/es;
+            v2   = (n-1)*pi/(2*n);
+            k    = ellipdeg(n, k1);
+%             phi2      = 1/n*asinh(1/epsilon);
+            v0     = asne(1i/ep, k1)/n;
+            KK2    = 1i*cde(theta+v0, k);
+            if ~mod(n, 2)
+                KK2 = sign(real(KK2)).*(sqrt((KK2).^2 + cos(v2).^2)./sin(v2));
+            end
+%                 KK1    = 1i./(k*cde(u, k));
+%                 ff   = fp.*cosh(phi2).*sin(theta);
+%                 yf   = -fp.*sinh(phi2).*cos(theta);
+%                 v2        = (n-1)*pi/(2*n);
+%                 Zv = 1i.*cosh(phi2).*sin(theta) + sinh(phi2).*cos(theta);
+%                 KK2 = sign(real(Zv)).*sqrt(Zv.^2 + cos(v2).^2)./sin(v2);
+            ff   = fp.*imag(KK2);
+            yf   = fp.*real(KK2);
         otherwise
             fprintf('fType Error(%s)', fType);
     end
