@@ -25,7 +25,7 @@ function [G_Data] = funInitParameter(app)
             As  = 10.*log10(2);
         case 'Chebyshev II'
             f11 = fp*4;
-        case 'Cauer'
+        case 'Elliptic'
             f11 = fp*4;
         otherwise
             fprintf('fType Error(%s)', fType);
