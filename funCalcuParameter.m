@@ -87,13 +87,19 @@ function [iP, rP, iZ, rZ, ff, yf, HsFR, MagFp, Hs, Hs0, P, Z] = funCalcuParamete
             es   = sqrt(10^(0.1*As)-1);% 阻带衰减量
             ep   = epsilon;%sqrt(10^(0.1*Ap)-1);% 截止频率处衰减量
             k1   = ep/es;
-            v2   = (n-1)*pi/(2*n);
             k    = ellipdeg(n, k1);
+            v2   = (n-1)/(n);
+            wa   = cde(v2, k);
+            wb   = 1./(k*cde((n-1)/n, k));
+            aa   = wb^2;
+            dd   = (-1+wb^2)/(1-wa^2);
+            bb   = dd*wa^2;
+            cc   = 1;
 %             phi2      = 1/n*asinh(1/epsilon);
             v0     = asne(1i/ep, k1)/n;
             KK2    = 1i*cde(theta+v0, k);
             if ~mod(n, 2)
-                KK2 = sign(real(KK2)).*(sqrt((KK2).^2 + cos(v2).^2)./sin(v2));
+                KK2 = sign(real(KK2)).*(sqrt((dd.*KK2.^2+bb)./(cc.*KK2.^2+aa)));
             end
 %                 KK1    = 1i./(k*cde(u, k));
 %                 ff   = fp.*cosh(phi2).*sin(theta);
