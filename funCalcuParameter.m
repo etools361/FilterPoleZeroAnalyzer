@@ -109,6 +109,24 @@ function [iP, rP, iZ, rZ, ff, yf, HsFR, MagFp, Hs, Hs0, P, Z] = funCalcuParamete
 %                 KK2 = sign(real(Zv)).*sqrt(Zv.^2 + cos(v2).^2)./sin(v2);
             ff   = fp.*imag(KK2);
             yf   = fp.*real(KK2);
+        case 'Bessel'
+            aE  = (epsilon)^(-1/n);
+            [N2, D2, ND] = fun_bessel_thomson_polynomial(n);
+            [absH] = funCalcuHjw2(ND);
+            [w1] = funGetBesselNormFreq(absH, epsilon);
+            [ry, iy]=funAntiStokesLine();
+%             ff   = fp.*aE.*ry.*max(real(P));
+%             yf   = fp.*aE.*iy.*max(real(P));
+            ff   = fp.*aE.*ry.*sqrt(n.*(n+1))./w1;
+            yf   = fp.*aE.*iy.*sqrt(n.*(n+1))./w1;
+        case 'Gaussian'
+            aE  = (epsilon)^(-1/n);
+            [N2, D2, ND] = fun_gaussian_polynomial(n, epsilon);
+            [absH] = funCalcuHjw2(ND);
+            [w1] = funGetGaussianNormFreq(absH, epsilon);
+            [ry, iy]=funSzegoCurve(n);
+            ff   = fp.*aE.*ry.*n./w1./1.02;
+            yf   = fp.*aE.*iy.*n./w1./1.02;
         otherwise
             fprintf('fType Error(%s)', fType);
     end
