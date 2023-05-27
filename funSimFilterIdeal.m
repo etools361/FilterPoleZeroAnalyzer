@@ -45,7 +45,7 @@ switch fType % 滤波器类型
         for ii=1:n
             k = ii;
             Zv  = aE.*exp(1i.*((2*k-1).*pi./(2*n) + pi/2));
-            IdealData = IdealData.*1./(s+Zv);
+            IdealData = IdealData.*aE./(s+Zv);
             P(ii) = Zv;
         end
         Z = inf;
@@ -139,6 +139,28 @@ switch fType % 滤波器类型
             else
                 IdealData = C.*KK2./KK1.*IdealData.*(s + KK1)./(s + KK2);
             end
+        end
+    case 'Bessel'
+        ep   = sqrt(10^(0.1*Ap)-1);% 截止频率处衰减量
+        [N2, D2, ND] = fun_bessel_thomson_polynomial(n);
+        [absH] = funCalcuHjw2(ND);
+        % 获取归一化频率
+        [w1] = funGetBesselNormFreq(absH, ep);
+        [P] = roots(fliplr(ND));
+        P = P'./w1;
+        Z = inf;
+        IdealData = IdealData*ND(1)/w1^n;
+        for ii=1:n
+            IdealData = IdealData./(s - P(ii));
+        end
+    case 'Gaussian'
+        ep   = sqrt(10^(0.1*Ap)-1);% 截止频率处衰减量
+        [P, wr, absND] = fun_gaussian_polynomial(n, ep);
+        P = eval(P.*wr);
+        Z         = inf;
+        IdealData = IdealData.*sqrt(factorial(n)).*wr.^(n);
+        for ii=1:n
+            IdealData = IdealData./(s - P(ii));
         end
     otherwise
         error('TBD');
