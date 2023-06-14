@@ -127,6 +127,13 @@ function [iP, rP, iZ, rZ, ff, yf, HsFR, MagFp, Hs, Hs0, P, Z] = funCalcuParamete
             [ry, iy]=funSzegoCurve(n);
             ff   = fp.*aE.*ry.*n./w1./1.02;
             yf   = fp.*aE.*iy.*n./w1./1.02;
+        case 'Legendre'
+            aE  = (epsilon)^(-1/n);
+            [N2, D2, ND] = fun_legendre_polynomial(n, epsilon);
+
+            [ry, iy]=funSzegoCurve(n);
+            ff   = fp.*aE.*ry.*n;
+            yf   = fp.*aE.*iy.*n;
         otherwise
             fprintf('fType Error(%s)', fType);
     end
