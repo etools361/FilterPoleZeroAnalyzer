@@ -125,11 +125,19 @@ function [iP, rP, iZ, rZ, ff, yf, HsFR, MagFp, Hs, Hs0, P, Z] = funCalcuParamete
             [absH] = funCalcuHjw2(ND);
             [w1] = funGetGaussianNormFreq(absH, epsilon);
             [ry, iy]=funSzegoCurve(n);
-            ff   = fp.*aE.*ry.*n./w1./1.02;
-            yf   = fp.*aE.*iy.*n./w1./1.02;
+            ff   = fp.*aE.*ry.*n./w1./1.06;
+            yf   = fp.*aE.*iy.*n./w1./1.06;
         case 'Legendre'
             aE  = (epsilon)^(-1/n);
             [N2, D2, ND] = fun_legendre_polynomial(n, epsilon);
+
+            [ry, iy]=funSzegoCurve(n);
+            ff   = fp.*aE.*ry.*n;
+            yf   = fp.*aE.*iy.*n;
+        case 'LinearAmp'
+            aE  = (epsilon)^(-1/n);
+            IL   = 10^(-Ap/20);
+            [N2, D2, ND] = fun_linear_amp_polynomial(n, IL);
 
             [ry, iy]=funSzegoCurve(n);
             ff   = fp.*aE.*ry.*n;

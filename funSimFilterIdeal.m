@@ -170,6 +170,14 @@ switch fType % 滤波器类型
         for ii=1:n
             IdealData = IdealData./(s - P(ii));
         end
+    case 'LinearAmp'
+        IL   = 10^(-Ap/20);
+        [P, wr, absND] = fun_linear_amp_polynomial(n, IL);
+        Z         = inf;
+        IdealData = IdealData./sqrt(absND(end));
+        for ii=1:n
+            IdealData = IdealData./(s - P(ii));
+        end
     otherwise
         error('TBD');
 end

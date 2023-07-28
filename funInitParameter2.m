@@ -33,6 +33,8 @@ function [G_Data] = funInitParameter2(fType, fShape, n, fp, Ap, fs, bw, As, f1, 
             f11 = fp*4;
         case 'Legendre'
             f11 = fp*4;
+        case 'LinearAmp'
+            f11 = fp*4;
         otherwise
             fprintf('fType Error(%s)', fType);
     end
